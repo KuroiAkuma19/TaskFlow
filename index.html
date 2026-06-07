@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TaskFlow - Login</title>
+    <meta
+      name="description"
+      content="A responsive task management web app with login, task tracking, and mobile-friendly CRUD controls."
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <div class="ambient ambient-a"></div>
+      <div class="ambient ambient-b"></div>
+
+      <main class="app-frame">
+        <section class="auth-screen" id="authScreen" aria-labelledby="authTitle">
+          <div class="hero-copy">
+            <span class="eyebrow">Task management workspace</span>
+            <h1 id="loginTitle">Plan, track, and ship work from any screen.</h1>
+            <p>
+              TaskFlow gives you a focused login screen and a responsive task board for desktop and mobile.
+            </p>
+          </div>
+
+          <form class="auth-card" id="loginForm">
+            <div class="auth-card__header">
+              <div>
+                <p class="card-kicker" id="authKicker">Welcome back</p>
+                <h2 id="authTitle">Sign in</h2>
+              </div>
+              <div class="brand-mark" aria-hidden="true">TF</div>
+            </div>
+
+            <label class="field hidden" id="nameField">
+              <span>Name</span>
+              <input id="name" name="name" type="text" placeholder="Avery" autocomplete="name" />
+            </label>
+
+            <label class="field">
+              <span>Email</span>
+              <input id="email" name="email" type="email" placeholder="demo@taskflow.app" autocomplete="email" required />
+            </label>
+
+            <label class="field">
+              <span>Password</span>
+              <input id="password" name="password" type="password" placeholder="task1234" autocomplete="current-password" required />
+            </label>
+
+            <label class="field hidden" id="confirmPasswordField">
+              <span>Confirm password</span>
+              <input
+                id="confirmPassword"
+                name="confirmPassword"
+                type="password"
+                placeholder="Repeat your password"
+                autocomplete="new-password"
+              />
+            </label>
+
+            <div class="auth-meta">
+              <label class="checkbox">
+                <input id="rememberMe" type="checkbox" checked />
+                <span>Remember this device</span>
+              </label>
+              <button class="link-button" type="button" id="fillDemo">Use demo account</button>
+            </div>
+
+            <button class="primary-button" type="submit" id="submitAuthButton">Log in</button>
+
+            <div class="auth-switch">
+              <span id="authSwitchLabel">No account yet?</span>
+              <button class="link-button" type="button" id="toggleAuthMode">Create account</button>
+            </div>
+
+            <p class="helper-text">
+              Demo credentials: <strong>demo@taskflow.app</strong> / <strong>task1234</strong>
+            </p>
+          </form>
+        </section>
+
+        <section class="workspace hidden" id="workspace" aria-label="Task management workspace">
+          <header class="topbar">
+            <div>
+              <p class="card-kicker">TaskFlow workspace</p>
+              <h2>Good to see you, <span id="userName"></span></h2>
+            </div>
+            <button class="ghost-button" id="logoutButton" type="button">Log out</button>
+          </header>
+
+          <section class="stats-grid" aria-label="Task overview statistics">
+            <article class="stat-card accent-blue">
+              <span>Total Tasks</span>
+              <strong id="totalCount">0</strong>
+            </article>
+            <article class="stat-card accent-green">
+              <span>Completed</span>
+              <strong id="completedCount">0</strong>
+            </article>
+            <article class="stat-card accent-gold">
+              <span>In Progress</span>
+              <strong id="progressCount">0</strong>
+            </article>
+            <article class="stat-card accent-rose">
+              <span>Due Soon</span>
+              <strong id="dueSoonCount">0</strong>
+            </article>
+          </section>
+
+          <section class="content-grid">
+            <aside class="panel task-form-panel">
+              <div class="panel-header">
+                <div>
+                  <p class="card-kicker" id="formKicker">Create task</p>
+                  <h3 id="formTitle">Add a new task</h3>
+                </div>
+                <button class="ghost-button small" id="resetFormButton" type="button">Reset</button>
+              </div>
+
+              <form id="taskForm" class="task-form">
+                <input type="hidden" id="taskId" name="taskId" />
+                <label class="field">
+                  <span>Title</span>
+                  <input id="taskTitle" name="title" type="text" placeholder="Design project landing page" required />
+                </label>
+                <label class="field">
+                  <span>Description</span>
+                  <textarea
+                    id="taskDescription"
+                    name="description"
+                    rows="4"
+                    placeholder="Add the key details, context, or acceptance criteria."
+                    required
+                  ></textarea>
+                </label>
+                <div class="field-row">
+                  <label class="field">
+                    <span>Status</span>
+                    <select id="taskStatus" name="status">
+                      <option value="todo">To do</option>
+                      <option value="progress">In progress</option>
+                      <option value="done">Done</option>
+                    </select>
+                  </label>
+                  <label class="field">
+                    <span>Priority</span>
+                    <select id="taskPriority" name="priority">
+                      <option value="low">Low</option>
+                      <option value="medium" selected>Medium</option>
+                      <option value="high">High</option>
+                    </select>
+                  </label>
+                </div>
+                <label class="field">
+                  <span>Due date</span>
+                  <input id="taskDueDate" name="dueDate" type="date" required />
+                </label>
+                <button class="primary-button" type="submit" id="submitTaskButton">Save task</button>
+              </form>
+            </aside>
+
+            <section class="panel board-panel">
+              <div class="panel-header board-header">
+                <div>
+                  <p class="card-kicker">Task board</p>
+                  <h3>Your active work</h3>
+                </div>
+                <label class="search-box" aria-label="Search tasks">
+                  <span aria-hidden="true">⌕</span>
+                  <input id="searchInput" type="search" placeholder="Search tasks" />
+                </label>
+              </div>
+
+              <div class="filter-row" aria-label="Task filters">
+                <button class="filter-chip active" data-filter="all" type="button">All</button>
+                <button class="filter-chip" data-filter="todo" type="button">To do</button>
+                <button class="filter-chip" data-filter="progress" type="button">In progress</button>
+                <button class="filter-chip" data-filter="done" type="button">Done</button>
+              </div>
+
+              <div class="task-list" id="taskList" aria-live="polite"></div>
+              <div class="empty-state hidden" id="emptyState">
+                <h4>No tasks match your filters.</h4>
+                <p>Create a task or clear the search to show your board again.</p>
+              </div>
+            </section>
+          </section>
+        </section>
+      </main>
+    </div>
+
+    <script src="./app.js"></script>
+  </body>
+</html>
